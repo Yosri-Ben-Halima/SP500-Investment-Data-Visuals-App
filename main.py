@@ -138,9 +138,9 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                 st.subheader(f"{metric}")
                 fig = go.Figure()
                 if metric == 'Rolling Alpha' or metric == 'Rolling Beta':
-                    fig.add_trace(go.Scatter(x=tickerDf['Date'][rolling_window:], y=tickerDf[metric][rolling_window:], mode='lines', name=f'{companyName} ({tickerSymbol})', line=dict(color='green')))
+                    fig.add_trace(go.Scatter(x=tickerDf['Date'][rolling_window:], y=tickerDf[metric][rolling_window:], mode='lines', name=f'{companyName} ({tickerSymbol})', line=dict(color='white')))
                 else:
-                    fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf[metric], mode='lines', name=tickerSymbol, line=dict(color='green')))
+                    fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf[metric], mode='lines', name=tickerSymbol, line=dict(color='white')))
                 if compare_to_benchmark:
                     if metric in sp500Df.columns:
                         fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df[metric], mode='lines', name='^GSPC', line=dict(color='#4bffb0')))
@@ -149,7 +149,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
 
         st.subheader("Returns Distribution")
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=tickerDf['Stock Returns'], name=tickerSymbol, marker=dict(color='green'), opacity=0.7, nbinsx=50))
+        fig.add_trace(go.Histogram(x=tickerDf['Stock Returns'], name=tickerSymbol, marker=dict(color='white'), opacity=0.7, nbinsx=50))
         if compare_to_benchmark:
             fig.add_trace(go.Histogram(x=sp500Df['Stock Returns'], name='^GSPC', marker=dict(color='#4bffb0'), opacity=0.7, nbinsx=50))
         fig.update_layout(xaxis_title='Returns', yaxis_title='Frequency', barmode='overlay', template='plotly_dark')
@@ -158,13 +158,13 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
     elif data_options == 'Additional Information':
         st.subheader("Volume")
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Volume'], mode='lines', name=tickerSymbol, line=dict(color='yellow')))
+        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Volume'], mode='lines', name=tickerSymbol, line=dict(color='#4bffb0')))
         fig.update_layout(xaxis_title='Date', yaxis_title='Volume ($)', template='plotly_dark')
         st.plotly_chart(fig)
 
         st.subheader("Dividends")
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Dividends'], mode='lines', name=tickerSymbol, line=dict(color='green')))
+        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Dividends'], mode='lines', name=tickerSymbol, line=dict(color='white')))
         fig.update_layout(xaxis_title='Date', yaxis_title='Dividends ($)', template='plotly_dark')
         st.plotly_chart(fig)
 
