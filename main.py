@@ -126,7 +126,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
             fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Low'], mode='lines', name=f'{tickerSymbol} Low', line=dict(color='red')))
             fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Close'], mode='lines', name=f'{tickerSymbol} Close', line=dict(color='orange')))
             if compare_to_benchmark:
-                fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df['Close'], mode='lines', name='S&P 500 Close', line=dict(color='purple')))
+                fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df['Close'], mode='lines', name='S&P 500 Close', line=dict(color='cyan')))
             fig.update_layout(xaxis_title='Date', yaxis_title='Price', template='plotly_dark')
             st.plotly_chart(fig)
 
@@ -140,18 +140,18 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                 if metric == 'Rolling Alpha' or metric == 'Rolling Beta':
                     fig.add_trace(go.Scatter(x=tickerDf['Date'][rolling_window:], y=tickerDf[metric][rolling_window:], mode='lines', name=f'{companyName} ({tickerSymbol})', line=dict(color='blue')))
                 else:
-                    fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf[metric], mode='lines', name=tickerSymbol, line=dict(color='blue')))
+                    fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf[metric], mode='lines', name=tickerSymbol, line=dict(color='green')))
                 if compare_to_benchmark:
                     if metric in sp500Df.columns:
-                        fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df[metric], mode='lines', name='^GSPC', line=dict(color='orange')))
+                        fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df[metric], mode='lines', name='^GSPC', line=dict(color='red')))
                 fig.update_layout(xaxis_title='Date', yaxis_title=f'{metric}', template='plotly_dark')
                 st.plotly_chart(fig)
 
         st.subheader("Returns Distribution")
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=tickerDf['Stock Returns'], name=tickerSymbol, marker=dict(color='blue'), opacity=0.7, nbinsx=50))
+        fig.add_trace(go.Histogram(x=tickerDf['Stock Returns'], name=tickerSymbol, marker=dict(color='green'), opacity=0.7, nbinsx=50))
         if compare_to_benchmark:
-            fig.add_trace(go.Histogram(x=sp500Df['Stock Returns'], name='^GSPC', marker=dict(color='orange'), opacity=0.7, nbinsx=50))
+            fig.add_trace(go.Histogram(x=sp500Df['Stock Returns'], name='^GSPC', marker=dict(color='red'), opacity=0.7, nbinsx=50))
         fig.update_layout(xaxis_title='Returns', yaxis_title='Frequency', barmode='overlay', template='plotly_dark')
         st.plotly_chart(fig)
 
