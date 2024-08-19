@@ -143,7 +143,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                     fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf[metric], mode='lines', name=tickerSymbol, line=dict(color='green')))
                 if compare_to_benchmark:
                     if metric in sp500Df.columns:
-                        fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df[metric], mode='lines', name='^GSPC', line=dict(color='red')))
+                        fig.add_trace(go.Scatter(x=sp500Df['Date'], y=sp500Df[metric], mode='lines', name='^GSPC', line=dict(color='yellow')))
                 fig.update_layout(xaxis_title='Date', yaxis_title=f'{metric}', template='plotly_dark')
                 st.plotly_chart(fig)
 
@@ -151,14 +151,14 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         fig = go.Figure()
         fig.add_trace(go.Histogram(x=tickerDf['Stock Returns'], name=tickerSymbol, marker=dict(color='green'), opacity=0.7, nbinsx=50))
         if compare_to_benchmark:
-            fig.add_trace(go.Histogram(x=sp500Df['Stock Returns'], name='^GSPC', marker=dict(color='red'), opacity=0.7, nbinsx=50))
+            fig.add_trace(go.Histogram(x=sp500Df['Stock Returns'], name='^GSPC', marker=dict(color='yellow'), opacity=0.7, nbinsx=50))
         fig.update_layout(xaxis_title='Returns', yaxis_title='Frequency', barmode='overlay', template='plotly_dark')
         st.plotly_chart(fig)
 
     elif data_options == 'Additional Information':
         st.subheader("Volume")
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Volume'], mode='lines', name=tickerSymbol, line=dict(color='blue')))
+        fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Volume'], mode='lines', name=tickerSymbol, line=dict(color='yellow')))
         fig.update_layout(xaxis_title='Date', yaxis_title='Volume ($)', template='plotly_dark')
         st.plotly_chart(fig)
 
