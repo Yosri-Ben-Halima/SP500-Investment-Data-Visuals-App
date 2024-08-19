@@ -16,14 +16,43 @@ st.set_page_config(
 # Sidebar title
 st.sidebar.header('Input Options')
 
+import pandas as pd
+import streamlit as st
+
 # Fetch S&P 500 tickers and names
 sp500_df = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
 sp500_tickers = sp500_df['Symbol'].tolist()
 sp500_names = sp500_df['Security'].tolist()
 
-# Sidebar: Dropdown menu for selecting ticker
-tickerSymbol = st.sidebar.selectbox('Select a Company', sp500_tickers, placeholder='Search Company by Ticker')
-companyName = sp500_names[sp500_tickers.index(tickerSymbol)]
+# Combine tickers and names into a list of tuples
+sp500_combined = [(ticker, name) for ticker, name in zip(sp500_tickers, sp500_names)]
+
+# Sidebar: Search box for filtering
+search_query = st.sidebar.text_input('Search by Ticker or Company Name', '')
+
+# Filter based on search query
+filtered_combined = [item for item in sp500_combined if search_query.lower() in item[0].lower() or search_query.lower() in item[1].lower()]
+
+# Ensure that there is always at least one option to select
+if filtered_combined:
+    # Sidebar: Dropdown menu for selecting ticker
+    selected_ticker, selected_company = st.sidebar.selectbox(
+        'Select a Company',
+        filtered_combined,
+        format_func=lambda x: f"{x[0]} - {x[1]}",
+        placeholder='Search Company by Ticker or Name'
+    )
+else:
+    st.sidebar.selectbox('Select a Company', [], format_func=lambda x: "No results found")
+
+# Extract the selected company details
+companyName = selected_company if 'selected_company' in locals() else ''
+tickerSymbol = selected_ticker if 'selected_ticker' in locals() else ''
+
+# Debugging output (can be removed in production)
+st.sidebar.write(f"Selected Ticker: {tickerSymbol}")
+st.sidebar.write(f"Selected Company Name: {companyName}")
+
 
 # Sidebar: Date input for start date
 start_date = st.sidebar.date_input('Start date', datetime(2018, 5, 31))
