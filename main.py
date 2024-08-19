@@ -111,7 +111,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                                              high=sp500Df['High'],
                                              low=sp500Df['Low'],
                                              close=sp500Df['Close'],
-                                             name='S&P 500'))
+                                             name='^GSPC'))
             fig.update_layout(xaxis_title='Date', yaxis_title='Price', xaxis_rangeslider_visible=False, template='plotly_dark')
             st.plotly_chart(fig)
         else:
