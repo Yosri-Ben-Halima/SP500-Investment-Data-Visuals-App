@@ -24,7 +24,7 @@ sp500_names = sp500_df['Security'].tolist()
 # Combine tickers and names into a list of tuples
 sp500_combined = [ticker+' - '+name for ticker, name in zip(sp500_tickers, sp500_names)]
 
-selection = st.sidebar.selectbox('Select a Company', sp500_combined, placeholder='Search Company by Ticker or Company Name')
+selection = st.sidebar.selectbox('Select a Company', sp500_combined, placeholder='Search by Ticker or Company Name')
 
 # Extract the selected company details
 tickerSymbol, companyName = selection.split(' - ')[0], selection.split(' - ')[1]
