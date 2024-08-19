@@ -12,20 +12,7 @@ st.set_page_config(
     page_icon="📈",  # Update the icon
     layout="wide"
 )
-st.markdown(
-    """
-    <style>
-    .main {
-        background-color: #1e1e1e;
-        color: #ffffff;
-    }
-    .sidebar .sidebar-content {
-        background-color: #333333;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 # Sidebar title
 st.sidebar.header('Input Options')
 
