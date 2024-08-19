@@ -22,13 +22,12 @@ sp500_tickers = sp500_df['Symbol'].tolist()
 sp500_names = sp500_df['Security'].tolist()
 
 # Combine tickers and names into a list of tuples
-sp500_combined = [(ticker, name) for ticker, name in zip(sp500_tickers, sp500_names)]
+sp500_combined = [ticker+' - '+name for ticker, name in zip(sp500_tickers, sp500_names)]
 
-st.sidebar.selectbox('Select a Company', sp500_combined, placeholder='Search Company by Ticker')
+selection = st.sidebar.selectbox('Select a Company', sp500_combined, placeholder='Search Company by Ticker')
 
 # Extract the selected company details
-companyName = selected_company if 'selected_company' in locals() else ''
-tickerSymbol = selected_ticker if 'selected_ticker' in locals() else ''
+tickerSymbol, companyName = selection.split(' - ')[0], selection.split(' - ')[1]
 
 # Sidebar: Date input for start date
 start_date = st.sidebar.date_input('Start date', datetime(2018, 5, 31))
