@@ -97,7 +97,7 @@ sp500Df.reset_index(inplace=True)
 
 # Main Page: Title of the app
 st.title(f"📈 S&P 500 Stock Data | {companyName} (`{tickerSymbol}`)")
-st.write("Explore the selected company's stock data, compare it with the S&P 500 index, and analyze various financial metrics.")
+st.write(f"Explore the stock data for {companyName}, compare it with the S&P 500 index, and analyze various financial metrics.")
 
 def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark):
     if data_options == 'Stock Price - OHLC':
