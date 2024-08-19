@@ -7,8 +7,11 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 # Set page layout to wide
-st.set_page_config(layout="wide")
-
+st.set_page_config(
+    page_title="Stock Data Analysis Dashboard",  # Update the title
+    page_icon="📈",  # Update the icon
+    layout="wide"
+)
 # Sidebar title
 st.sidebar.header('Input Options')
 
