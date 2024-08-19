@@ -116,7 +116,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                                              low=sp500Df['Low'],
                                              close=sp500Df['Close'],
                                              name='^GSPC'))
-            fig.update_layout(xaxis_title='Date', yaxis_title='Price', xaxis_rangeslider_visible=False, template='plotly_dark')
+            fig.update_layout(xaxis_title='Date', yaxis_title='Price ($)', xaxis_rangeslider_visible=False, template='plotly_dark')
             st.plotly_chart(fig)
         else:
             st.subheader("OHLC")
@@ -159,13 +159,13 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         st.subheader("Volume")
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Volume'], mode='lines', name=tickerSymbol, line=dict(color='blue')))
-        fig.update_layout(xaxis_title='Date', yaxis_title='Volume', template='plotly_dark')
+        fig.update_layout(xaxis_title='Date', yaxis_title='Volume ($)', template='plotly_dark')
         st.plotly_chart(fig)
 
         st.subheader("Dividends")
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=tickerDf['Date'], y=tickerDf['Dividends'], mode='lines', name=tickerSymbol, line=dict(color='green')))
-        fig.update_layout(xaxis_title='Date', yaxis_title='Dividends', template='plotly_dark')
+        fig.update_layout(xaxis_title='Date', yaxis_title='Dividends ($)', template='plotly_dark')
         st.plotly_chart(fig)
 
 
