@@ -10,7 +10,8 @@ from sklearn.linear_model import LinearRegression
 st.set_page_config(
     page_title="Stock Data Analysis Dashboard",  # Update the title
     page_icon="📈",  # Update the icon
-    layout="wide"
+    layout="wide",
+    theme={"base": "dark"}
 )
 
 # Sidebar title
