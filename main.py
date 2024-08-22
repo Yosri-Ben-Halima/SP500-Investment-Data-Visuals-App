@@ -37,7 +37,7 @@ tickerSymbol, companyName = selection[:-1].split(' (')[-1], selection[:-1].split
 # Sidebar: Date input for start date
 start_date = st.sidebar.date_input(
     'Start date',
-    datetime(2018, 5, 31),
+    datetime(2023, 1, 1),
     help="Select the start date for the stock data."
 )
 
