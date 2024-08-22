@@ -87,6 +87,7 @@ tickerDf = fetch_data(tickerSymbol, start_date, end_date)
 sp500Df = fetch_data('^GSPC', start_date, end_date)
 
 # Calculate Returns
+@st.cache_data
 def calculate_returns(df):
     df['Stock Returns'] = df['Close'].pct_change()
     df['Log Returns'] = np.log(df['Close'] / df['Close'].shift(1))
@@ -115,7 +116,7 @@ if data_options == 'Technical Indicators':
                                        help="Adjust how many past days are used to calculate Bollinger bands.")
 
 
-#@st.cache_data
+@st.cache_data
 def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
     tickerDf['Rolling Alpha'] = np.nan
     tickerDf['Rolling Beta'] = np.nan
@@ -133,7 +134,7 @@ def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
 
 tickerDf = calculate_rolling_metrics(tickerDf, sp500Df, rolling_window)
 
-#@st.cache_data
+@st.cache_data
 def calculate_macd(data, short_span=12, long_span=26, signal_span=9):
     """
     Calculate the MACD (Moving Average Convergence Divergence) and Signal Line.
