@@ -97,6 +97,7 @@ calculate_returns(tickerDf)
 calculate_returns(sp500Df)
 
 # Rolling Alpha and Beta
+rolling_window = 252
 if data_options == 'Returns & Performance':
     rolling_window = st.sidebar.slider('Lookback window for Alpha and Beta (in days)',
                                        min_value=1, 
