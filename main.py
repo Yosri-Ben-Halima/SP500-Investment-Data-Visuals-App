@@ -344,7 +344,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
             x=macd_data.index,
             y=macd_data['MACD Histogram'],
             name='MACD Histogram',
-            marker=dict(color=macd_data['MACD Histogram'].apply(lambda x: 'rgba(255,0,0,0.6)' if x < 0 else 'rgba(0,255,0,0.6)'))
+            marker=dict(color=macd_data['MACD Histogram'].apply(lambda x: 'rgba(255,0,0,0.9)' if x < 0 else 'rgba(0,255,0,0.9)'))
         ))
     
         # Customize the layout
