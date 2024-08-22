@@ -24,26 +24,52 @@ sp500_names = sp500_df['Security'].tolist()
 # Combine tickers and names into a list of tuples
 sp500_combined = [ticker+' - '+name for ticker, name in zip(sp500_tickers, sp500_names)]
 
-selection = st.sidebar.selectbox('Select a Company', sp500_combined, placeholder='Search by Ticker or Company Name')
+selection = st.sidebar.selectbox(
+    'Select a Company',
+    sp500_combined,
+    placeholder='Search by Ticker or Company Name',
+    help="Choose a company from the S&P 500 index by its ticker symbol or name."
+)
 
 # Extract the selected company details
 tickerSymbol, companyName = selection.split(' - ')[0], selection.split(' - ')[1]
 
 # Sidebar: Date input for start date
-start_date = st.sidebar.date_input('Start date', datetime(2018, 5, 31))
+start_date = st.sidebar.date_input(
+    'Start date',
+    datetime(2018, 5, 31),
+    help="Select the start date for the stock data."
+)
 
 # Sidebar: Checkbox for using the current date as the end date
-use_current_date = st.sidebar.checkbox('Use current date as end date', value=True)
+use_current_date = st.sidebar.checkbox(
+    'Use current date as end date',
+    value=True,
+    help="Enable this option to use the current date as the end date for the stock data."
+)
 
 # Sidebar: Date input for end date (only if the checkbox is not checked)
-end_date = datetime.now() if use_current_date else st.sidebar.date_input('End date', datetime(2020, 5, 31))
+end_date = datetime.now() if use_current_date else st.sidebar.date_input(
+    'End date',
+    datetime(2020, 5, 31),
+    help="Select the end date for the stock data. This is only available if 'Use current date as end date' is unchecked."
+)
 
 # Sidebar: New data organization
-data_options = st.sidebar.radio('Select data to plot', ['Stock Price - OHLC', 'Returns & Performance', 'Additional Information'])
+data_options = st.sidebar.radio(
+    'Select data to plot',
+    ['Stock Price - OHLC', 'Returns & Performance', 'Additional Information'],
+    help="Choose the type of data you want to visualize."
+)
 
 # OHLC and Candlesticks selection
 if data_options == 'Stock Price - OHLC':
-    ohlc_option = st.sidebar.selectbox('Select OHLC data', ['Candlesticks', 'OHLC'], index=0)
+    ohlc_option = st.sidebar.selectbox(
+        'Select OHLC data',
+        ['Candlesticks', 'OHLC'],
+        index=0,
+        help="Select the type of OHLC data to display: Candlesticks or traditional OHLC chart."
+    )
 
 # Ensure end_date is after start_date
 if not use_current_date and start_date > end_date:
