@@ -218,7 +218,11 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
 
 
 # Sidebar: Checkbox to compare to S&P 500 Index
-compare_to_benchmark = st.sidebar.checkbox('Compare to S&P 500 Index (`^GSPC`)')
+compare_to_benchmark = st.sidebar.checkbox(
+    'Compare to S&P 500 Index (`^GSPC`)',
+    value=False,
+    help="Enable this option to compare the selected company's stock data with the S&P 500 index."
+)
 
 # Plot the data based on user selection
 plot_data(tickerDf, sp500Df, data_options, ohlc_option if data_options == 'Stock Price - OHLC' else None, compare_to_benchmark)
