@@ -22,7 +22,7 @@ sp500_tickers = sp500_df['Symbol'].tolist()
 sp500_names = sp500_df['Security'].tolist()
 
 # Combine tickers and names into a list of tuples
-sp500_combined = [name +' ('+ticker+')' for ticker, name in zip(sp500_tickers, sp500_names)]
+sp500_combined = [f"{name} ({ticker})" for ticker, name in zip(sp500_tickers, sp500_names)]
 
 selection = st.sidebar.selectbox(
     'Select a Company',
@@ -115,7 +115,7 @@ if data_options == 'Technical Indicators':
                                        help="Adjust how many past days are used to calculate Bollinger bands.")
 
 
-@st.cache_data
+#@st.cache_data
 def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
     tickerDf['Rolling Alpha'] = np.nan
     tickerDf['Rolling Beta'] = np.nan
@@ -133,7 +133,7 @@ def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
 
 tickerDf = calculate_rolling_metrics(tickerDf, sp500Df, rolling_window)
 
-@st.cache_data
+#@st.cache_data
 def calculate_macd(data, short_span=12, long_span=26, signal_span=9):
     """
     Calculate the MACD (Moving Average Convergence Divergence) and Signal Line.
