@@ -273,17 +273,15 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
     
         # Customize the layout for a fancier appearance
         fig.update_layout(
-            #title='Bollinger Bands',
             xaxis_title='Date',
             yaxis_title='Price ($)',
             template='plotly_dark',
-            #xaxis=dict(showgrid=False),
-            #yaxis=dict(showgrid=False),
             hovermode='x unified',
             legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
             margin=dict(l=40, r=40, t=40, b=40),
             height=600,
         )
+        st.plotly_chart(fig)
         
     elif data_options == 'Additional Information':
         st.subheader("Volume")
