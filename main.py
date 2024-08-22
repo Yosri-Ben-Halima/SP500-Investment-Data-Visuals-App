@@ -32,7 +32,7 @@ selection = st.sidebar.selectbox(
 )
 
 # Extract the selected company details
-tickerSymbol, companyName = selection[:-1].split(' (')[1], selection[:-1].split(' (')[0]
+tickerSymbol, companyName = selection[:-1].split(' (')[-1], selection[:-1].split(' (')[0]
 
 # Sidebar: Date input for start date
 start_date = st.sidebar.date_input(
