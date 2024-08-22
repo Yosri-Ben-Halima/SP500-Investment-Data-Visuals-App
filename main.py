@@ -155,7 +155,7 @@ def calculate_macd(data, short_span=12, long_span=26, signal_span=9):
     macd_line = short_ema - long_ema
 
     # Calculate the Signal Line
-    signal_line = data.ewm(span=signal_span, adjust=False).mean()
+    signal_line = macd_line.ewm(span=signal_span, adjust=False).mean()
 
     # Calculate the MACD Histogram
     macd_histogram = macd_line - signal_line
