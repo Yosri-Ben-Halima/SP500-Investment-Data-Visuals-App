@@ -227,8 +227,8 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         tickerDf['STD'] = tickerDf['Close'].rolling(window=window).std()
     
         # Calculate the upper and lower Bollinger Bands
-        tickerDf['Upper Band'] = tickerDf['SMA'] + num_std_dev * tickerDf['STD']
-        tickerDf['Lower Band'] = tickerDf['SMA'] - num_std_dev * tickerDf['STD']
+        tickerDf['Upper Band'] = tickerDf['SMA'] + 2 * tickerDf['STD']
+        tickerDf['Lower Band'] = tickerDf['SMA'] - 2 * tickerDf['STD']
     
         # Create a plotly figure
         fig = go.Figure()
