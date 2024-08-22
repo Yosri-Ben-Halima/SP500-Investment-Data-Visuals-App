@@ -105,6 +105,16 @@ if data_options == 'Returns & Performance':
                                        value=252,
                                        help="Adjust how many past days are used to calculate Alpha and Beta metrics.")
 
+# Rolling Alpha and Beta
+window = 30
+if data_options == 'Technical Indicators':
+    window = st.sidebar.slider('Lookback window for Bollinger bands (in days)',
+                                       min_value=1, 
+                                       max_value=252, 
+                                       value=30,
+                                       help="Adjust how many past days are used to calculate Bollinger bands.")
+
+
 @st.cache_data
 def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
     tickerDf['Rolling Alpha'] = np.nan
