@@ -133,6 +133,40 @@ def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
 
 tickerDf = calculate_rolling_metrics(tickerDf, sp500Df, rolling_window)
 
+@st.cache_data
+def calculate_macd(data, short_span=12, long_span=26, signal_span=9):
+    """
+    Calculate the MACD (Moving Average Convergence Divergence) and Signal Line.
+
+    Parameters:
+    data (pd.Series): A Pandas Series containing the data to smooth.
+    short_span (int): The span for the short EMA (default is 12).
+    long_span (int): The span for the long EMA (default is 26).
+    signal_span (int): The span for the Signal Line EMA (default is 9).
+
+    Returns:
+    pd.DataFrame: A DataFrame with MACD Line, Signal Line, and MACD Histogram.
+    """
+    # Calculate the short and long EMAs
+    short_ema = data.ewm(span=short_span, adjust=False).mean()
+    long_ema = data.ewm(span=long_span, adjust=False).mean()
+
+    # Calculate the MACD Line
+    macd_line = short_ema - long_ema
+
+    # Calculate the Signal Line
+    signal_line = data.ewm(span=signal_span, adjust=False).mean()
+
+    # Calculate the MACD Histogram
+    macd_histogram = macd_line - signal_line
+
+    return pd.DataFrame({
+        'MACD Line': macd_line,
+        'Signal Line': signal_line,
+        'MACD Histogram': macd_histogram
+    })
+macd_data = calculate_macd(tickerDf)
+
 # Reset index to use Date as a column
 tickerDf.reset_index(inplace=True)
 sp500Df.reset_index(inplace=True)
@@ -282,6 +316,47 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
             height=600,
         )
         st.plotly_chart(fig)
+
+        st.subheader("Moving Average Convergence Divergence (MACD)")
+        fig = go.Figure()
+        
+        # Plot the MACD Line
+        fig.add_trace(go.Scatter(
+            x=macd_data.index,
+            y=macd_data['MACD Line'],
+            mode='lines',
+            name='MACD Line',
+            line=dict(color='#4bffb0', width=2)
+        ))
+    
+        # Plot the Signal Line
+        fig.add_trace(go.Scatter(
+            x=macd_data.index,
+            y=macd_data['Signal Line'],
+            mode='lines',
+            name='Signal Line',
+            line=dict(color='#FAFAFA', width=2)
+        ))
+    
+        # Plot the MACD Histogram
+        fig.add_trace(go.Bar(
+            x=macd_data.index,
+            y=macd_data['MACD Histogram'],
+            name='MACD Histogram',
+            marker=dict(color=macd_data['MACD Histogram'].apply(lambda x: 'rgba(255,0,0,0.6)' if x < 0 else 'rgba(0,255,0,0.6)'))
+        ))
+    
+        # Customize the layout
+        fig.update_layout(
+            xaxis_title='Date',
+            yaxis_title='Price (USD)',
+            template='plotly_dark',
+            hovermode='x unified',
+            legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+            margin=dict(l=40, r=40, t=40, b=40),
+            height=600,
+        )
+
         
     elif data_options == 'Additional Information':
         st.subheader("Volume")
