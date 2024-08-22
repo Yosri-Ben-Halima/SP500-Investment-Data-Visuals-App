@@ -314,15 +314,15 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
             hovermode='x unified',
             legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
             margin=dict(l=40, r=40, t=40, b=40),
-            height=600,
+            #height=600,
         )
         st.plotly_chart(fig)
 
         st.subheader("Moving Average Convergence Divergence (MACD)")
-        fig = go.Figure()
+        fig_macd = go.Figure()
         
         # Plot the MACD Line
-        fig.add_trace(go.Scatter(
+        fig_macd.add_trace(go.Scatter(
             x=macd_data.index,
             y=macd_data['MACD Line'],
             mode='lines',
@@ -331,7 +331,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         ))
     
         # Plot the Signal Line
-        fig.add_trace(go.Scatter(
+        fig_macd.add_trace(go.Scatter(
             x=macd_data.index,
             y=macd_data['Signal Line'],
             mode='lines',
@@ -340,7 +340,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         ))
     
         # Plot the MACD Histogram
-        fig.add_trace(go.Bar(
+        fig_macd.add_trace(go.Bar(
             x=macd_data.index,
             y=macd_data['MACD Histogram'],
             name='MACD Histogram',
@@ -348,16 +348,16 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         ))
     
         # Customize the layout
-        fig.update_layout(
+        fig_macd.update_layout(
             xaxis_title='Date',
             yaxis_title='Price (USD)',
             template='plotly_dark',
             hovermode='x unified',
             legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
             margin=dict(l=40, r=40, t=40, b=40),
-            height=600,
+            #height=600,
         )
-
+        st.plotly_chart(fig_macd)
         
     elif data_options == 'Additional Information':
         st.subheader("Volume")
