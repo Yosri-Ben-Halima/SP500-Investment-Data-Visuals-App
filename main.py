@@ -234,7 +234,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         fig = go.Figure()
     
         # Plot the closing prices
-        fig.add_trace(go.Candlestick(x=tickerDf.index[window:],
+        fig.add_trace(go.Candlestick(x=tickerDf['Date'][window:],
                                                  open=tickerDf['Open'][window:],
                                                  high=tickerDf['High'][window:],
                                                  low=tickerDf['Low'][window:],
@@ -243,7 +243,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
     
         # Plot the SMA (middle Bollinger Band)
         fig.add_trace(go.Scatter(
-            x=tickerDf.index[window:],
+            x=tickerDf['Date'][window:],
             y=tickerDf['SMA'][window:],
             mode='lines',
             name=f'{window}-Day SMA',
@@ -252,7 +252,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
     
         # Plot the upper Bollinger Band
         fig.add_trace(go.Scatter(
-            x=tickerDf.index[window:],
+            x=tickerDf['Date'][window:],
             y=tickerDf['Upper Band'][window:],
             mode='lines',
             name='Upper Band',
@@ -262,7 +262,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
     
         # Plot the lower Bollinger Band and fill the area between upper and lower bands
         fig.add_trace(go.Scatter(
-            x=tickerDf.index[window:],
+            x=tickerDf['Date'][window:],
             y=tickerDf['Lower Band'][window:],
             mode='lines',
             name='Lower Band',
