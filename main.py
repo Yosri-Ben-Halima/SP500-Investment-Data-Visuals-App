@@ -56,9 +56,9 @@ end_date = datetime.now() if use_current_date else st.sidebar.date_input(
 )
 
 # Sidebar: New data organization
-data_options = st.sidebar.radio(
+data_options = st.sidebar.selectbox(
     'Select data to plot',
-    ['Stock Price - OHLC', 'Returns & Performance', 'Additional Information'],
+    ['Stock Price - OHLC', 'Returns & Performance', 'Technical Indicators', 'Additional Information'],
     help="Choose the type of data you want to visualize."
 )
 
@@ -208,7 +208,73 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                           legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
                           margin=dict(l=40, r=40, t=40, b=40))
         st.plotly_chart(fig)
+    elif data_options == 'Technical Indicators':
+        st.subheader("Technical Indicators")
+        st.subheader("Bollinger Bands")
+        tickerDf['SMA'] = tickerDf['Close'].rolling(window=window).mean()
 
+        # Calculate the standard deviation
+        tickerDf['STD'] = tickerDf['Close'].rolling(window=window).std()
+    
+        # Calculate the upper and lower Bollinger Bands
+        tickerDf['Upper Band'] = tickerDf['SMA'] + num_std_dev * tickerDf['STD']
+        tickerDf['Lower Band'] = tickerDf['SMA'] - num_std_dev * tickerDf['STD']
+    
+        # Create a plotly figure
+        fig = go.Figure()
+    
+        # Plot the closing prices
+        fig.add_trace(go.Candlestick(x=tickerDf.index[window:],
+                                                 open=tickerDf['Open'][window:],
+                                                 high=tickerDf['High'][window:],
+                                                 low=tickerDf['Low'][window:],
+                                                 close=tickerDf['Close'][window:],
+                                                 name='Candlesticks'))
+    
+        # Plot the SMA (middle Bollinger Band)
+        fig.add_trace(go.Scatter(
+            x=tickerDf.index[window:],
+            y=tickerDf['SMA'][window:],
+            mode='lines',
+            name=f'{window}-Day SMA',
+            line=dict(color='#FAFAFA', width=2)
+        ))
+    
+        # Plot the upper Bollinger Band
+        fig.add_trace(go.Scatter(
+            x=tickerDf.index[window:],
+            y=tickerDf['Upper Band'][window:],
+            mode='lines',
+            name='Upper Band',
+            line=dict(color='#4bffb0', width=1, dash='dot'),
+            fill=None
+        ))
+    
+        # Plot the lower Bollinger Band and fill the area between upper and lower bands
+        fig.add_trace(go.Scatter(
+            x=tickerDf.index[window:],
+            y=tickerDf['Lower Band'][window:],
+            mode='lines',
+            name='Lower Band',
+            line=dict(color='#4bffb0', width=1, dash='dot'),
+            fill='tonexty',  # Fill area between Upper Band and Lower Band
+            fillcolor='rgba(173, 216, 230, 0.2)'  # Light blue fill with transparency
+        ))
+    
+        # Customize the layout for a fancier appearance
+        fig.update_layout(
+            #title='Bollinger Bands',
+            xaxis_title='Date',
+            yaxis_title='Price ($)',
+            template='plotly_dark',
+            #xaxis=dict(showgrid=False),
+            #yaxis=dict(showgrid=False),
+            hovermode='x unified',
+            legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
+            margin=dict(l=40, r=40, t=40, b=40),
+            height=600,
+        )
+        
     elif data_options == 'Additional Information':
         st.subheader("Volume")
         fig = go.Figure()
