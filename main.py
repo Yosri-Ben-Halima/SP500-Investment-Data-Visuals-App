@@ -165,7 +165,8 @@ def calculate_macd(data, short_span=12, long_span=26, signal_span=9):
         'Signal Line': signal_line,
         'MACD Histogram': macd_histogram
     })
-macd_data = calculate_macd(tickerDf)
+    
+macd_data = calculate_macd(tickerDf['Close'])
 
 # Reset index to use Date as a column
 tickerDf.reset_index(inplace=True)
