@@ -350,7 +350,7 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
         # Customize the layout
         fig_macd.update_layout(
             xaxis_title='Date',
-            yaxis_title='Price ($)',
+            yaxis_title='MACD',
             template='plotly_dark',
             hovermode='x unified',
             legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
