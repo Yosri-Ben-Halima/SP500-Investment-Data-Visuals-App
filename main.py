@@ -103,7 +103,7 @@ if data_options == 'Returns & Performance':
                                        min_value=1, 
                                        max_value=504, 
                                        value=252,
-                                       help="Adjust the lookback window for calculating rolling Alpha and Beta metrics.")
+                                       help="Adjust how many past days are used to calculate Alpha and Beta metrics.")
 
 @st.cache_data
 def calculate_rolling_metrics(tickerDf, sp500Df, rolling_window):
