@@ -49,6 +49,10 @@ This project is a Streamlit app for visualizing and analyzing stock data from th
 
 Feel free to submit issues or pull requests to enhance the project.
 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 ## Contact
 
 Thank you for visiting my GitHub profile! Feel free to reach out if you have any questions or opportunities to collaborate. Let's connect and explore new possibilities together!
