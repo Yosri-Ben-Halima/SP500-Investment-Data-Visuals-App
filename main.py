@@ -195,6 +195,10 @@ def plot_data(tickerDf, sp500Df, data_options, ohlc_option, compare_to_benchmark
                                              close=sp500Df['Close'],
                                              name='^GSPC'))
             fig.update_layout(xaxis_title='Date',
+                              xaxis=dict(
+                                    rangeslider=dict(visible=True),
+                                    showgrid=True
+                              ),
                               yaxis_title='Price ($)',
                               xaxis_rangeslider_visible=False,
                               template='plotly_dark',
